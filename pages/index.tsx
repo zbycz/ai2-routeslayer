@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react';
-import { RoutesLayer } from '../src/components/FeaturePanel/Climbing/Editor/RoutesLayer';
-import {
-  ClimbingContextProvider,
-  useClimbingContext,
-} from '../src/components/FeaturePanel/Climbing/contexts/ClimbingContext';
+import React from 'react';
+import { RoutesLayerPure } from '../src/components/FeaturePanel/Climbing/Editor/RoutesLayerPure';
 import type { Feature } from '../src/services/types';
 import type { ClimbingRoute } from '../src/components/FeaturePanel/Climbing/types';
 
@@ -62,20 +58,6 @@ const SAMPLE_ROUTES: ClimbingRoute[] = [
   },
 ];
 
-const Setup = () => {
-  const { setRoutes, setPhotoPath, setImageSize, setAreRoutesLoading } =
-    useClimbingContext();
-
-  useEffect(() => {
-    setImageSize({ width: window.innerWidth, height: window.innerHeight });
-    setPhotoPath(PHOTO_URL);
-    setRoutes(SAMPLE_ROUTES);
-    setAreRoutesLoading(false);
-  }, [setAreRoutesLoading, setImageSize, setPhotoPath, setRoutes]);
-
-  return null;
-};
-
 export default function IndexPage() {
   return (
     <div
@@ -87,10 +69,7 @@ export default function IndexPage() {
         background: '#d6c9b0',
       }}
     >
-      <ClimbingContextProvider feature={SAMPLE_FEATURE}>
-        <Setup />
-        <RoutesLayer isVisible />
-      </ClimbingContextProvider>
+      <RoutesLayerPure routes={SAMPLE_ROUTES} photoPath={PHOTO_URL} />
     </div>
   );
 }
